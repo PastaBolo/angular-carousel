@@ -1,0 +1,11 @@
+<ng-container *carousel="let image from images; let index = index; let ctrl = controller;">
+  <div [@slide]="slideDirection" (@slide.done)="animationDone()"
+       style="border: 5px solid grey; height: 200px; width: 200px; overflow: hidden">
+    <img *refreshView="index" [src]="image" height="200" width="200">
+  </div>
+  <button (click)="!animating ? ctrl.previous() : 0" [disabled]="!cyclic && index == 0">Previous</button>
+  <button (click)="!animating ? ctrl.next() : 0" [disabled]="!cyclic && index == images.length - 1">Next</button>
+  <button *ngFor="let image of images; let index = index" (click)="ctrl.display(index)">{{ index }}</button>
+</ng-container>
+
+{{ animating }}
