@@ -1,39 +1,40 @@
 import { Directive, OnInit, Input, ViewContainerRef, TemplateRef, EmbeddedViewRef } from '@angular/core'
+import { CarouselContext } from './carousel'
 
 @Directive({
   selector: '[carousel]'
 })
 export class Carousel implements OnInit {
-  @Input('carouselFrom') elements: string[]
+  @Input('carouselFrom') items: string[]
+  @Input() currentIndex: number = 0
 
-  currentIndex: number = 0
   private currentView: EmbeddedViewRef<any>
 
   constructor(private vcr: ViewContainerRef, private tmpl: TemplateRef<any>) {}
 
   ngOnInit(): void {
-    this.currentView = this.vcr.createEmbeddedView(this.tmpl, {
-      $implicit: this.elements[this.currentIndex],
+    this.currentView = this.vcr.createEmbeddedView<CarouselContext>(this.tmpl, {
+      $implicit: this.items[this.currentIndex],
       index: this.currentIndex,
       controller: {
-        next: () => this.prevNext(1),
         previous: () => this.prevNext(-1),
+        next: () => this.prevNext(1),
         display: (index: number) => {
           this.currentIndex = index
-          this.changeElement()
+          this.changeItem()
         }
       }
     })
   }
 
   private prevNext(delta: -1 | 1): void {
-    this.currentIndex = this.modulo((this.currentIndex += delta), this.elements.length)
-    this.changeElement()
+    this.currentIndex = this.modulo((this.currentIndex += delta), this.items.length)
+    this.changeItem()
   }
 
-  private changeElement(): void {
+  private changeItem(): void {
     Object.assign(this.currentView.context, {
-      $implicit: this.elements[this.currentIndex],
+      $implicit: this.items[this.currentIndex],
       index: this.currentIndex
     })
   }

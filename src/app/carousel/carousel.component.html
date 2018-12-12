@@ -2,8 +2,8 @@
   <div #slider [@slide]="slideDirection" (@slide.done)="animationDone()" class="slider">
     <img *rerender="image" [src]="image" height="200" width="200">
   </div>
-  <button (click)="!isAnimating(slider) ? ctrl.previous() : 0" [disabled]="!cyclic && index == 0">Previous</button>
-  <button (click)="!isAnimating(slider) ? ctrl.next() : 0" [disabled]="!cyclic && index == images.length - 1">Next</button>
+  <button (click)="previous(slider, ctrl)">Previous</button>
+  <button (click)="next(slider, ctrl)">Next</button>
   <button *ngFor="let image of images; let index = index" (click)="!isAnimating(slider) ? ctrl.display(index) : 0">
     <span>{{ index }}</span>
   </button>
