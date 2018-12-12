@@ -1,0 +1,9 @@
+<ng-container *carousel="let image from images; let currentIndex = index; let ctrl = controller">
+  <img [src]="image">
+  <div class="prev" (click)="ctrl.previous()"><i class="material-icons">navigate_before</i></div>
+  <div class="next" (click)="ctrl.next()"><i class="material-icons">navigate_next</i></div>
+  <ul class="bullets">
+    <li *ngFor="let image of images; let index = index" (click)="ctrl.display(index)" [ngClass]="{'active': index == currentIndex}"></li>
+  </ul>
+  <div class="position">{{ currentIndex + 1 }} / {{ images.length }}</div>
+</ng-container>

@@ -1,0 +1,58 @@
+:host {
+  display: block;
+  position: relative;
+}
+
+img {
+  height: 100%;
+  width: 100%;
+}
+
+.prev,
+.next {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.prev:hover i,
+.next:hover i {
+  color: red;
+}
+
+.prev {
+  left: 0;
+}
+
+.next {
+  right: 0;
+}
+
+.bullets {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: 20px;
+  padding: 0;
+  width: 100%;
+}
+
+.bullets > li {
+  background: rgb(255, 255, 255, 0.5);
+  height: 3px;
+  width: 30px;
+  margin: 0 3px;
+}
+
+.bullets > li.active {
+  background: #fff;
+}
+
+.position {
+  text-align: center;
+}
