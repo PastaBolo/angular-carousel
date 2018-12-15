@@ -1,10 +1,11 @@
-<ng-container *carousel="let image from images; let index = index; let ctrl = controller">
-  <div #slider [@slide]="slideDirection" (@slide.done)="animationDone()" class="slider">
-    <img *rerender="image" [src]="image" height="200" width="200">
+<ng-container *carousel="let image from images; let i = index; let direction = direction; let ctrl = controller; cyclic: cyclic">
+  <div #slider [@slide]="direction" (@slide.done)="ctrl.resetDirection()" class="slider">
+    <img *rerender="image" [src]="image">
   </div>
-  <button (click)="previous(slider, ctrl)">Previous</button>
-  <button (click)="next(slider, ctrl)">Next</button>
-  <button *ngFor="let image of images; let index = index" (click)="!isAnimating(slider) ? ctrl.display(index) : 0">
+  <button (click)="isAnimating(slider) || ctrl.previous()">Previous</button>
+  <button (click)="isAnimating(slider) || ctrl.next()">Next</button>
+  <button *ngFor="let image of images; let index = index" (click)="isAnimating(slider) || ctrl.display(index)">
     <span>{{ index }}</span>
   </button>
+  {{ i }} / {{images.length - 1 }}
 </ng-container>
