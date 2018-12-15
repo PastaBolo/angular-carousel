@@ -1,4 +1,11 @@
-<ng-container *carousel="let image from images; let i = index; let direction = direction; let ctrl = controller; cyclic: cyclic">
+<ng-container *carousel="
+  let image from images; 
+  let i = index; 
+  let direction = direction; 
+  let ctrl = controller; 
+  cyclic: cyclic;
+  autoplay: autoplay;
+  autoplaySpeed: autoplaySpeed">
   <div #slider [@slide]="direction" (@slide.done)="ctrl.resetDirection()" class="slider">
     <img *rerender="image" [src]="image">
   </div>
@@ -8,4 +15,9 @@
     <span>{{ index }}</span>
   </button>
   {{ i }} / {{images.length - 1 }}
+  <div><button (click)="autoplay = !autoplay">Autoplay</button>{{ autoplay }}</div>
+  <div><button (click)="cyclic = !cyclic">Cyclic</button>{{ cyclic }}</div>
+  <div>
+    <input [(ngModel)]="autoplaySpeed">
+  </div>
 </ng-container>

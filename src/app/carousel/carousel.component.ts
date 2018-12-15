@@ -35,7 +35,9 @@ import { trigger, transition, animate, style, query, group } from '@angular/anim
 })
 export class CarouselComponent {
   @Input() images: string[]
-  @Input() cyclic: boolean = false
+  cyclic: boolean = false
+  autoplay: boolean = true
+  autoplaySpeed: number = 1500
 
   isAnimating(slider: HTMLElement): boolean {
     return slider.classList.contains('ng-animating')
