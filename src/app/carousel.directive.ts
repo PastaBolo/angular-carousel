@@ -62,7 +62,7 @@ export class Carousel implements OnInit, OnDestroy {
         })
       this.autoplayerSource.next()
     } else {
-      this.autoplayerSubscription && this.autoplayerSubscription.unsubscribe()
+      this.unsubscribeAutoplayer()
     }
   }
 
@@ -86,7 +86,7 @@ export class Carousel implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.autoplayerSubscription.unsubscribe()
+    this.unsubscribeAutoplayer()
   }
 
   private previous(): void {
@@ -114,5 +114,9 @@ export class Carousel implements OnInit, OnDestroy {
       direction: this.direction
     })
     this.autoplay && this.autoplayerSource.next()
+  }
+
+  private unsubscribeAutoplayer(): void {
+    this.autoplayerSubscription && this.autoplayerSubscription.unsubscribe()
   }
 }
