@@ -1,5 +1,6 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core'
 import { trigger, transition, animate, style, query, group } from '@angular/animations'
+import { coerceBooleanProperty } from '@angular/cdk/coercion'
 
 @Component({
   selector: 'app-carousel',
@@ -35,9 +36,26 @@ import { trigger, transition, animate, style, query, group } from '@angular/anim
 })
 export class CarouselComponent {
   @Input() images: string[]
-  cyclic: boolean = false
-  autoplay: boolean = true
-  autoplaySpeed: number = 1500
+
+  private _cyclic: boolean
+  get cyclic(): boolean {
+    return this._cyclic
+  }
+  @Input()
+  set cyclic(value: boolean) {
+    this._cyclic = coerceBooleanProperty(value)
+  }
+
+  private _autoplay: boolean
+  get autoplay(): boolean {
+    return this._autoplay
+  }
+  @Input()
+  set autoplay(value: boolean) {
+    this._autoplay = coerceBooleanProperty(value)
+  }
+
+  @Input() autoplaySpeed: number
 
   isAnimating(slider: HTMLElement): boolean {
     return slider.classList.contains('ng-animating')
